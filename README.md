@@ -1,8 +1,31 @@
 # nuxt-movie-app
+검색 엔진 최적화로 동적인 페이지들의 메타 정보를 openGraph를 활용해서 작성 
 
 ## Deployment
 [https://nuxt-movie-yeji.herokuapp.com <br>
-](https://nuxt-movie-yeji.herokuapp.com/)
+![화면 캡처 2021-08-11 150345](https://user-images.githubusercontent.com/59958929/128977910-0579ec50-7a88-4cf9-bfb6-a49e7504da9c.png)](https://nuxt-movie-yeji.herokuapp.com/)
+
+## SPA   vs SSR
+
+SPA → Single Page Application 
+
+장점 : 최초로 응답받은 서버를 기반으로 해서 다른 페이지도 구분해줌
+
+페이지가 바뀌더라도 서버에 해당 페이지에 대한 새로운 요청이 전송되거나 응답받는 개념이 아님
+
+단점 : SEO 페이지가 많거나 검색 기능을 제대로 수행할 수 없음
+
+그래서 서버사이드 렌더링을 이용함
+
+(CSR → Client Side Rendering) ⇒ SPA보다 큰 개념
+
+SSR → Server Side Rendering
+
+서버 측에서 페이지를 만들어서 내보내주는 것
+
+[Nuxt.js - Vue.js 프레임워크](https://ko.nuxtjs.org/)
+
+`Nuxt는 vue2에서만 적용되므로 vue2의 문법으로 작성해주어야 한다.`
 
 ## Build Setup
 
