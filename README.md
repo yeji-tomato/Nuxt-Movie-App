@@ -1,5 +1,8 @@
 # nuxt-movie-app
 
+## Deployment
+https://nuxt-movie-yeji.herokuapp.com
+
 ## Build Setup
 
 ```bash
