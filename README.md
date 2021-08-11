@@ -3,7 +3,7 @@
 
 ## Deployment
 [https://nuxt-movie-yeji.herokuapp.com <br>
-![화면 캡처 2021-08-11 150345](https://user-images.githubusercontent.com/59958929/128977910-0579ec50-7a88-4cf9-bfb6-a49e7504da9c.png)](https://nuxt-movie-yeji.herokuapp.com/)
+![image](https://user-images.githubusercontent.com/59958929/128978376-c2544a8e-5c53-4e08-95be-202bdd140710.png)](https://nuxt-movie-yeji.herokuapp.com/)
 
 ## SPA   vs SSR
 
@@ -27,70 +27,99 @@ SSR → Server Side Rendering
 
 `Nuxt는 vue2에서만 적용되므로 vue2의 문법으로 작성해주어야 한다.`
 
-## Build Setup
 
-```bash
-# install dependencies
-$ npm install
+### import
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+```jsx
+additionalData: '@import "~/scss/main";'
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+webpack에선 따로 패키지 처리 없이 webpack.config.js에 작성이 가능했지만 Nuxt에선 따로 패키지를 설치해야한다!
 
-## Special Directories
+```
+$ npm i -D @nuxtjs/style-resources
+```
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+**`nuxt.config.js`**
 
-### `assets`
+```jsx
+modules: [
+    '@nuxtjs/style-resources'
+  ],
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+  styleResources: {
+    scss: [
+      '~/scss/main.scss'
+    ]
+  },
+```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+### Store 폴더
 
-### `components`
+Nuxt에선 Store라는 기본 개념이 존재하기 때문에 
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+**`index.js`** 
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+→ module로 movie와 about을 등록해줌
 
-### `layouts`
+```jsx
+import Vue from 'vue'
+import Vuex from 'vuex'
+import movie from './movie'
+import about from './about'
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+Vue.use(Vuex)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+export default new Vuex.Store({
+  modules: {
+    movie,
+    about
+  }
+})
+```
 
+vue에서 작성했던 index.js의 내용은 삭제해주어야 한다.
 
-### `pages`
+⇒ 충돌이 발생할 수 있기 때문에 
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+**단. index.js파일은 삭제하면 안됨!!!** 
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+**→ index.js파일이 존재하게 되면 그 때 내부적으로 store를 활성화할 수 있는 기능을 가지고 있기 때문에!!!**
 
-### `plugins`
+### Babel / postcss
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+vue에서는 babelrc라는 js파일을 제공해서 기본적인 구성을 했지만 Nuxt에서는 nuxt.config.js파일에다가 명시하도록 만들어져 있음
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+```jsx
+build: {
+    babel: {
+      presets: ['@babel/preset-env'],
+      plugins: [
+        ['@babel/plugin-transform-runtime']
+      ]
+    },
+    postcss: {
+      plugins: [
+        require('autoprefixer')
+      ]
+    }
+  }
+```
 
-### `static`
+⚠️ **주의할 점!**
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+jest의 단위테스트에서 원래는 babelrc를 이용해 코드를 변환해서 사용했기에 문제가 발생
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+→ jest단위테스트를 위해서 .babelrc.js를 root경로에 넣어주어야 함
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+### express
 
-### `store`
+```
+$ npm i -D express 
+```
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+### APIKEY
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+```
+$ npm i -D @nuxtjs/dotenv
+```
