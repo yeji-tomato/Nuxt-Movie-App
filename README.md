@@ -1,7 +1,8 @@
 # nuxt-movie-app
 
 ## Deployment
-https://nuxt-movie-yeji.herokuapp.com
+[https://nuxt-movie-yeji.herokuapp.com <br>
+](https://nuxt-movie-yeji.herokuapp.com/)
 
 ## Build Setup
 
